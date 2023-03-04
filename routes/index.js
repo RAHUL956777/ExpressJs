@@ -1,5 +1,6 @@
 const { Router } = require("express");
-
+const apiKey = require("../middlewares/apiKey");
+const apiKeyMiddleware = require('../middlewares/apiKey')
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
@@ -15,8 +16,24 @@ router.get("/about", (req, res) => {
 });
 
 router.get("/download", (req, res) => {
-  let a = res.download(path.resolve(__dirname) + "about.html");
+  res.download(path.resolve(__dirname) + "about.html");
   // console.log(a);
 });
+
+router.get("/api/products", apiKeyMiddleware,(req, res) => {
+  res.json([
+    {
+      id: '123',
+      name:'chrome',
+    },
+    {
+      id: '12345',
+      name:'firefox',
+    }
+  ])
+  // console.log(a);
+});
+
+
 
 module.exports = router;
