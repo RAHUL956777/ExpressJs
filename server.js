@@ -1,5 +1,7 @@
+const { Router } = require("express");
 const express = require("express");
 const path = require("path");
+const mainRouter = require("./routes/index");
 
 const app = express();
 
@@ -21,21 +23,8 @@ console.log(app.get("views"));
 app.use(express.static("public"));
 
 // Setting up route file
-app.get("/", (req, res) => {
-  res.render(`index`, {
-    title: "My Home Page",
-  });
-});
 
-app.get("/about", (req, res) => {
-  res.render(`about`, {
-    title: " About",
-  });
-});
-
-app.get("/download", (req, res) => {
-  res.download(path.resolve(__dirname) + "/about.html");
-});
+app.use(mainRouter);
 
 app.listen(port, () => {
   console.log(`App is listening on port: ${port}`);
