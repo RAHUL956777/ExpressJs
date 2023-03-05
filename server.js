@@ -1,9 +1,9 @@
-const { Router } = require("express");
 const express = require("express");
 const path = require("path");
+const app = express();
 const mainRouter = require("./routes/index");
 
-const app = express();
+const productRouter = require("./routes/products");
 
 const port = process.env.port || 3000;
 // to change the ports value we use port = portnumber node filename(ex--server.js);
@@ -21,6 +21,9 @@ console.log(app.get("views"));
 
 // use middleware in express
 app.use(express.static("public"));
+
+// routes for products
+app.use( productRouter );
 
 // Setting up route file
 
